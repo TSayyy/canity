@@ -1,5 +1,7 @@
 import { Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 
+
+
 import { AppLayout } from "@/layouts/AppLayout";
 import { NotFoundPage } from "@/pages/404";
 import { EmailVerificationPage } from "@/pages/Auth/EmailVerification";
@@ -11,8 +13,8 @@ import { RegisterPage } from "@/pages/Auth/register";
 import { HomePage } from "@/pages/home";
 import { MentorViewerPage } from "@/pages/mentor/viewer";
 
-import { ChatProvider } from "./contexts/ChatContext";
-import RoomProvider from "./contexts/RoomContext";
+
+
 import { DashboardLayout } from "./layouts/DashboardLayout";
 import { FooterLayout } from "./layouts/FooterLayout";
 import { NavLayout } from "./layouts/NavLayout";
@@ -28,7 +30,6 @@ import { DashboardMentors } from "./pages/dashboard/mentors";
 import { OrderDetails } from "./pages/dashboard/orderDetails";
 import { DashboardOrders } from "./pages/dashboard/ordersList";
 import { EditProfile } from "./pages/editProfile";
-import { Meeting } from "./pages/meeting";
 import BeMentorForm from "./pages/mentor/beMentor";
 import MentorPage from "./pages/mentors";
 import { Pricing } from "./pages/pricing";
@@ -36,7 +37,7 @@ import Profile from "./pages/profile";
 import { Quiz } from "./pages/quiz";
 import { Roadmap } from "./pages/roadmap";
 import { Track } from "./pages/track";
-import { AuthRoutes } from "./routes/Auth";
+
 
 export const Router = createBrowserRouter(
   createRoutesFromElements(
@@ -69,46 +70,31 @@ export const Router = createBrowserRouter(
               </Route>
             </Route>
           </Route>
-
-          <Route element={<ProtectedRoute />}>
-            {/* Meeting Route */}
-            <Route
-              path="/meeting/:id"
-              element={
-                <RoomProvider>
-                  <ChatProvider>
-                    <Meeting />
-                  </ChatProvider>
-                </RoomProvider>
-              }
-            />
-
-            {/* Dashboard Routes */}
-            <Route path="/dashboard" element={<DashboardLayout />}>
-              <Route path="main" element={<DashboardMain />} />
-              <Route path="courses" element={<DashboardCourses />} />
-              <Route path="mentors" element={<DashboardMentors />} />
-              <Route path="orders-list" element={<DashboardOrders />} />
-              <Route path="orders-list/:orderId" element={<OrderDetails />} />
-            </Route>
-
-            {/* Chat Routes */}
-            <Route path="chat/coursanity-assistant" element={<ChatPage />} />
+          {/* Dashboard Routes */}
+          <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route path="main" element={<DashboardMain />} />
+            <Route path="courses" element={<DashboardCourses />} />
+            <Route path="mentors" element={<DashboardMentors />} />
+            <Route path="orders-list" element={<DashboardOrders />} />
+            <Route path="orders-list/:orderId" element={<OrderDetails />} />
           </Route>
-        </Route>
 
-        {/* Authentication Routes */}
-        <Route element={<AuthRoutes />}>
-          <Route path="auth/login" element={<LoginPage />} />
-          <Route path="auth/register" element={<RegisterPage />} />
-          <Route path="auth/verify/email/:code" element={<EmailVerificationPage />} />
-          <Route path="auth/verification" element={<VerificationPage />} />
-          <Route path="auth/forgot-password" element={<ForgotPassword />} />
-          <Route path="auth/reset-password" element={<ResetPassword />} />
+          {/* Chat Routes */}
+          <Route path="chat/coursanity-assistant" element={<ChatPage />} />
         </Route>
-
-        <Route path="*" element={<NotFoundPage />} />
       </Route>
+
+      {/* Authentication Routes */}
+      <Route element={<ProtectedRoute />}>
+        <Route path="auth/login" element={<LoginPage />} />
+        <Route path="auth/register" element={<RegisterPage />} />
+        <Route path="auth/verify/email/:code" element={<EmailVerificationPage />} />
+        <Route path="auth/verification" element={<VerificationPage />} />
+        <Route path="auth/forgot-password" element={<ForgotPassword />} />
+        <Route path="auth/reset-password" element={<ResetPassword />} />
+      </Route>
+
+      <Route path="*" element={<NotFoundPage />} />
     </Route>
   )
 );

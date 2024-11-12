@@ -4,21 +4,16 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Toaster } from "react-hot-toast";
-import { Provider as ReduxProvider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 
 import "@/index.css";
-import { store } from "@/redux/store.js";
 import { Router as router } from "@/router.js";
-
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <QueryClientProvider client={new QueryClient()}>
-        <ReduxProvider store={store}>
-          <RouterProvider router={router} />
-          <Toaster />
-        </ReduxProvider>
+        <RouterProvider router={router} />
+        <Toaster />
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </GoogleOAuthProvider>
